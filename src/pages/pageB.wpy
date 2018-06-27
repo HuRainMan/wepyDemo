@@ -1,0 +1,64 @@
+<template>
+    <view class="pageB-boss">
+        <text @tap="tapTitle"> 点击显示数据 </text>
+        <view class="movie-container-boss">
+            <block wx:for="{{movieList}}" wx:key="index" wx:for-item="item">
+                <image src="{{item.img}}"></image>
+                <text>{{item.nm}}</text>
+            </block>
+        </view>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import minxinsTest from 'mixins/test';
+
+export default class PageB extends wepy.page {
+    config = {
+        navigationBarTitleText: 'b',
+        navigationBarTextStyle: 'white',
+    };
+    mixins = [ minxinsTest, ];
+    data = {
+        name: '张三',
+        movieList: null,
+    };
+    methods = {
+        tapTitle() {
+            const _this = this;
+            wepy.request({
+                url: 'http://m.maoyan.com/movie/list.json?type=hot&offset=0&limit=1000',
+                success(res) {
+                    _this.movieList = res.data.data.movies;
+                },
+                fail(err) {
+                    console.log('err', err);
+                },
+            });
+        },
+    };
+    onShow() {
+        wepy.setNavigationBarTitle({
+            title: this.name,
+        });
+    };
+};
+</script>
+
+<style lang="less">
+    .pageB-boss {
+        padding: 0 30rpx;
+    }
+    .movie-container-boss {
+        background-color: #e5e5e5;
+        image {
+            width: 690rpx;
+            height: 1152rpx;
+            border-radius: 5px;
+        }
+        text {
+            text-align: center;
+        }
+    }
+</style>

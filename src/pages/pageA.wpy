@@ -1,0 +1,24 @@
+<template>
+    <view>
+        <text> this is pageA </text>
+        <progress percent='56'/>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+
+export default class PageA extends wepy.page {
+    config = {
+        navigationBarTitleText: 'a',
+        navigationBarTextStyle: 'white',
+    };
+    onload() {
+
+    };
+};
+</script>
+
+<style lang="less">
+
+</style>
